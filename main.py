@@ -1,5 +1,4 @@
 from casadi import *
-import sympy as sp
 from lib import dhMat
 from lib import Inertia
 from lib import strChange
