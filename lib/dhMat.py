@@ -33,6 +33,8 @@ class dhMat:
         return h;
     def R(self):
         return self.v[0:3,0:3]
+    def O(self):
+        return self.v[0:3,3]
     def __mul__(self,other):
         if(self.v == None):
             return None
