@@ -101,6 +101,9 @@ float NE::G_(float i){
 }
 void NE::Update(){
     lMat M,C,G;
+    M.Init(col,row);
+    C.Init(col,row);
+    G.Init(col,1);
 }
 '''
         

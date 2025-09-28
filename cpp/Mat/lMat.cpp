@@ -364,21 +364,19 @@ lMat lMat::operator*(lMat v)
 	lMat out;
 	int i, j, k, cnt = 0;
 	float sum;
-	if (this->r != v.c) {
+	if (this->c != v.r) {
 		v.TempRemove();
 		NoTemp();
 		return out;
 	}
-	out.Init(v.r, this->c);
-	for (i = 0; i < v.r; i++) {
-		for (j = 0; j < this->c; j++) {
-			sum = 0.0;
-			for (k = 0; k < this->r; k++) {
-				float a = this->v[k * this->c + j];
-				float b = v.v[i * v.c + k];
-				sum += a * b;
+	out.Init(this->r, v.c);
+	for(i = 0;i < this->r ;i++){
+		for(j = 0; j < v.c;j++){
+			sum = 0;
+			for(k = 0; k < this->c;k++){
+				sum+= this->v[k * this->r + i] * v.v[j *v.r + k];
 			}
-			out.v[cnt++] = sum;
+			out.In(i,j) = sum;
 		}
 	}
 	out.Temp();
@@ -448,7 +446,7 @@ void lMat::operator=(lMat v)
 float& lMat::In(int r, int c)
 {
 	float err;
-	int a = r * this->c + c;
+	int a = c * this->r + r;
 	if (this->r <= r) return err;
 	if (this->c <= c)return err;
 	NoTemp();
@@ -462,5 +460,5 @@ float lMat::Out(int r, int c)
 	if (this->r <= r) return 0.0;
 	if (this->c <= c)return 0.0;
 	NoTemp();
-	return v[r * this->c + c];
+	return v[c * this->r + r];
 }
